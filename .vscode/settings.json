@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/387974ab-2188-48d9-9b9a-5f7569dec895/resourceGroups/mlh-hacks/providers/Microsoft.Web/sites/mlh-hacks",
+    "appService.deploySubpath": "."
+}
