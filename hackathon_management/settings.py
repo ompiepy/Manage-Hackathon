@@ -155,7 +155,7 @@ REST_FRAMEWORK = {
     )
 
 }
-
+CSRF_TRUSTED_ORIGINS = ["https://mlh-hacks.azurewebsites.net/"]
 
 CORS_ALLOW_ALL_ORIGINS: True
 
