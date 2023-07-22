@@ -8,17 +8,20 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .utils import match_mentor_and_team
 
 
 def home(request):
-    try:
-        user = User.objects.get(username='Team-prashant')
-        user_data = user.registration_form
-        return HttpResponse("Success")
-    except User.DoesNotExist:
-        return HttpResponse("User not found", status=404)
-    except AttributeError:
-        return HttpResponse("User does not have 'registration_form' data", status=400)
+    # try:
+    #     user = User.objects.get(username='Team-prashant')
+    #     user_data = user.registration_form
+    #     return HttpResponse("Success")
+    # except User.DoesNotExist:
+    #     return HttpResponse("User not found", status=404)
+    # except AttributeError:
+    #     return HttpResponse("User does not have 'registration_form' data", status=400)
+    match_mentor_and_team()
+    return HttpResponse(200)
 
 
 # @api_view(['GET','POST'])
@@ -57,5 +60,3 @@ def home(request):
 #     #     return Response({'detail': 'Successfully logged in!'}, status=status.HTTP_200_OK)
 #     # else:
 #     return Response({'detail': 'Login failed!'}, status=status.HTTP_401_UNAUTHORIZED)
-
-

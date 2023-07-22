@@ -47,8 +47,8 @@ def compare_similarity(paragraph1, paragraph2):
     return similarity[0][0]
 
 
-paragraph1 = "This is the first paragraph in the comparison."
-paragraph2 = "This is the second paragraph for comparison."
+# paragraph1 = "This is the first paragraph in the comparison."
+# paragraph2 = "This is the second paragraph for comparison."
 
-similarity_score = compare_similarity(paragraph1, paragraph2)
-print(f"Similarity Score: {similarity_score:.2f}")
+# similarity_score = compare_similarity(paragraph1, paragraph2)
+# print(f"Similarity Score: {similarity_score:.2f}")

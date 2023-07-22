@@ -14,6 +14,7 @@ class Event(models.Model):
     venue = models.CharField(max_length=255)
     time = models.DateField()
     registration_required = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -24,6 +25,8 @@ class Mentor(models.Model):
     expertise = models.TextField()
     contact = models.CharField(max_length=15)
     available_time = models.TextField()
+    for_event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.mentor_name

@@ -1,4 +1,4 @@
-from .models import registration_form
+from .models import registration_form, Notification
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
@@ -25,9 +25,19 @@ def create_user(sender, instance, created, **kwargs):
             Subject = "Welcome and Credentials"
             message = '''Welcome to the Hackathon. Here is your hackathon credentials that you will be using
                         through out the event'''+f'''
-                            username: {user.username}\n password: {word}\n'''
+                            \n username: {user.username}\n password: {word}\n'''
             recepient = user.email
             sending_mail(Subject, message, recepient)
             return
         except:
             return "Error Occoured"
+
+
+@receiver(post_save, sender=Notification)
+def send_notification(sender, instance, created, **kwargs):
+    if created:
+        teams = registration_form.objects.all()
+        subject = instance.main_heading
+        message = instance.information
+        for team in teams:
+            sending_mail(subject, message, team.leader_email)
