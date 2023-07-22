@@ -19,6 +19,16 @@ class Event(models.Model):
         return self.title
 
 
+class Mentor(models.Model):
+    mentor_name = models.CharField(max_length=255)
+    expertise = models.TextField()
+    contact = models.CharField(max_length=15)
+    available_time = models.TextField()
+
+    def __str__(self):
+        return self.mentor_name
+
+
 class registration_form(models.Model):
     team_name = models.CharField(max_length=255)
     leader_name = models.CharField(max_length=255)
@@ -32,7 +42,9 @@ class registration_form(models.Model):
     tools_to_be_used = models.TextField()
     for_event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user_registration = models.OneToOneField(User, on_delete=models.CASCADE,
-                                related_name='registration_form', null=True, blank=True)
+                                             related_name='registration_form', null=True, blank=True)
+    mentor = models.ForeignKey(
+        Mentor, null=True, blank=True, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.team_name
@@ -56,16 +68,6 @@ class Result(models.Model):
 
     def __str__(self):
         return f'{self.team_name}-{self.points}'
-
-
-class Mentor(models.Model):
-    mentor_name = models.CharField(max_length=255)
-    expertise = models.TextField()
-    contact = models.CharField(max_length=15)
-    available_time = models.TextField()
-
-    def __str__(self):
-        return self.mentor_name
 
 
 class Track(models.Model):
