@@ -27,9 +27,21 @@ class Mentor(models.Model):
     available_time = models.TextField()
     for_event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
-
     def __str__(self):
         return self.mentor_name
+
+
+class Judges(models.Model):
+    Judge_name = models.CharField(max_length=255)
+    background = models.TextField()
+    contact = models.CharField(max_length=15)
+    email = models.EmailField()
+    for_event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    judge_registration = models.OneToOneField(User, on_delete=models.CASCADE,
+                                              related_name='Judges', null=True, blank=True)
+
+    def __str__(self):
+        return self.Judge_name
 
 
 class registration_form(models.Model):
@@ -43,7 +55,10 @@ class registration_form(models.Model):
     project_idea = models.CharField(max_length=255)
     project_description = models.TextField(null=True, blank=True)
     tools_to_be_used = models.TextField()
-    for_event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    anything_else = models.TextField()
+    prvious_projects = models.URLField()
+    for_event = models.ForeignKey(
+        Event, on_delete=models.CASCADE, null=True, blank=True)
     user_registration = models.OneToOneField(User, on_delete=models.CASCADE,
                                              related_name='registration_form', null=True, blank=True)
     mentor = models.ForeignKey(
@@ -84,6 +99,27 @@ class Track(models.Model):
 class Notification(models.Model):
     main_heading = models.CharField(max_length=255)
     information = models.TextField()
+    recipients = models.ManyToManyField(
+        User, through='NotificationRecipient', related_name='notifications')
 
     def __str__(self):
         return self.main_heading
+
+
+class NotificationRecipient(models.Model):
+    notification = models.ForeignKey(Notification, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # Add any additional fields if needed, such as a flag to mark if the notification has been read by the user.
+
+    def __str__(self):
+        return f"{self.notification.main_heading} - {self.user.username}"
+
+
+class ReviewForm(models.Model):
+    team_name = models.ForeignKey(User, on_delete=models.PROTECT)
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.team_name
+# Review Form
+# notification for some and all

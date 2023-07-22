@@ -1,9 +1,10 @@
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework.authentication import TokenAuthentication
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from django.shortcuts import render, HttpResponse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from rest_framework.decorators import api_view
@@ -20,7 +21,20 @@ def home(request):
     #     return HttpResponse("User not found", status=404)
     # except AttributeError:
     #     return HttpResponse("User does not have 'registration_form' data", status=400)
-    match_mentor_and_team()
+    # match_mentor_and_team()
+    # users_judge = User.objects.filter(username__icontains='Judge')
+
+    # add_result_permission = Permission.objects.get(codename='add_result')
+    # update_result_permission = Permission.objects.get(codename='change_result')
+    # delete_result_permission = Permission.objects.get(codename='delete_result')
+
+    # # user.has_perm('users.add_result')
+    # for user in users_judge:
+    #     user.user_permissions.add(add_result_permission)
+    #     user.user_permissions.add(update_result_permission)
+    #     user.user_permissions.add(delete_result_permission)
+        
+    #     print(user)
     return HttpResponse(200)
 
 
@@ -60,3 +74,8 @@ def home(request):
 #     #     return Response({'detail': 'Successfully logged in!'}, status=status.HTTP_200_OK)
 #     # else:
 #     return Response({'detail': 'Login failed!'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class ResultDashBoard(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.DjangoModelPermissions]
