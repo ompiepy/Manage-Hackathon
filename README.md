@@ -1,5 +1,5 @@
 # Manage-Hackathon
-A little about the Project: this is a general # Hackathon Management System.
+A little about the Project: this is a general Hackathon Management System.
 
 First Participants need to fill out the registration form for the event that is currently going on.
 
