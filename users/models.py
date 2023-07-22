@@ -21,7 +21,7 @@ class Event(models.Model):
 
 class registration_form(models.Model):
     team_name = models.CharField(max_length=255)
-    leade_name = models.CharField(max_length=255)
+    leader_name = models.CharField(max_length=255)
     member_2 = models.CharField(max_length=255)
     member_3 = models.CharField(max_length=255, null=True, blank=True)
     member_4 = models.CharField(max_length=255, null=True, blank=True)
@@ -31,23 +31,11 @@ class registration_form(models.Model):
     project_description = models.TextField(null=True, blank=True)
     tools_to_be_used = models.TextField()
     for_event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user_registration = models.OneToOneField(User, on_delete=models.CASCADE,
+                                related_name='registration_form', null=True, blank=True)
 
     def __str__(self):
         return self.team_name
-
-
-@receiver(post_save, sender=registration_form)
-def create_user(sender, instance, created, **kwargs):
-    """
-    A signal receiver function to create a new user when a RegistrationForm instance is saved.
-    """
-    if created:
-        # Create a new user with the team_name as the username and '12345' as the default password
-        word = get_random_string(10)
-        username_processing = 'Team-' + instance.team_name
-        user = User.objects.create(username=username_processing)
-        user.set_password(word)
-        user.save()
 
 
 class submission_form(models.Model):

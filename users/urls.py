@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .viewsets import EventViewSet, RegistrationFormViewSet, SubmissionFormViewSet, ResultViewSet, MentorViewSet, TrackViewSet, NotificationViewSet
+from .views import home,login
 
 router = DefaultRouter()
 router.register(r'events', EventViewSet)
@@ -13,4 +14,5 @@ router.register(r'notifications', NotificationViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('home/', home, name='home'),
 ]
