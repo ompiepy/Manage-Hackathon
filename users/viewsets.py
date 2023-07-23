@@ -8,40 +8,40 @@ from .permissions import RegistrationPermission, SubmissionPermission, GeneralPe
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [GeneralPermission]
+    # permission_classes = [GeneralPermission]
 
 
 class RegistrationFormViewSet(viewsets.ModelViewSet):
     queryset = registration_form.objects.all()
     serializer_class = RegistrationFormSerializer
-    permission_classes = [RegistrationPermission]
+    # permission_classes = [RegistrationPermission]
 
 
 class SubmissionFormViewSet(viewsets.ModelViewSet):
     queryset = submission_form.objects.all()
     serializer_class = SubmissionFormSerializer
-    permission_classes = [SubmissionPermission]
+    # permission_classes = [SubmissionPermission]
 
 
 class ResultViewSet(viewsets.ModelViewSet):
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
 
 
 class MentorViewSet(viewsets.ModelViewSet):
     queryset = Mentor.objects.all()
     serializer_class = MentorSerializer
-    permission_classes = [SubmissionPermission]
+    # permission_classes = [SubmissionPermission]
 
 
 class TrackViewSet(viewsets.ModelViewSet):
     queryset = Track.objects.all()
     serializer_class = TrackSerializer
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
 
 
 class NotificationViewSet(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
