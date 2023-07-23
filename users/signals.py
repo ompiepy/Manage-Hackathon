@@ -26,6 +26,7 @@ def create_user(sender, instance, created, **kwargs):
             instance.save()
             user.set_password(word)
             user.save()
+            user.is_staff = True
             add_result_permission = Permission.objects.get(
                 codename='add_submission_form')
             add_view_result_permission = Permission.objects.get(
